@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+</head>
+<body>
+    <script>
+        // Funkcje matematyczne
+        function add(a, b) {
+            return a + b;
+        }
+
+        function subtract(a, b) {
+            return a - b;
+        }
+
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        function divide(a, b) {
+            if (b === 0) {
+                console.error("Nie można dzielić przez zero!"); // Obsługa błędów (Clean Code)
+                return null;
+            }
+            return a / b;
+        }
+
+        // Funkcja do pobierania liczby z walidacją
+        function getNumber(promptText) { // Unikanie powtarzającego się kodu (Clean Code)
+            let number;
+            while (true) {
+                const input = prompt(promptText);
+                number = parseFloat(input);
+                if (!isNaN(number)) {
+                    return number; // Zwraca poprawną liczbę
+                } else {
+                    console.log("Proszę podać poprawną liczbę."); // Obsługa błędów
+                }
+            }
+        }
+
+        // Funkcja do pobierania operatora z walidacją
+        function getOperator() { // Unikanie powtarzającego się kodu (Clean Code)
+            const validOperators = ['+', '-', '*', '/'];
+            let operator;
+            while (true) {
+                operator = prompt("Podaj operator (+, -, *, /): ");
+                if (validOperators.includes(operator)) {
+                    return operator; // Zwraca poprawny operator
+                } else {
+                    console.log("Nieznany operator. Podaj poprawny operator (+, -, *, /)."); // Obsługa błędów
+                }
+            }
+        }
+
+        // Główna funkcja kalkulatora
+        function calculator() { // Modularność (Clean Code)
+            const firstNumber = getNumber("Podaj liczbę pierwszą:"); // Zmiana wprowadzająca walidację
+            const secondNumber = getNumber("Podaj liczbę drugą:"); // Zmiana wprowadzająca walidację
+            const operator = getOperator(); // Zmiana wprowadzająca walidację operatora
+
+            let result;
+            switch (operator) {
+                case '+':
+                    result = add(firstNumber, secondNumber); // Wywołanie funkcji dodawania
+                    break;
+                case '-':
+                    result = subtract(firstNumber, secondNumber); // Wywołanie funkcji odejmowania
+                    break;
+                case '*':
+                    result = multiply(firstNumber, secondNumber); // Wywołanie funkcji mnożenia
+                    break;
+                case '/':
+                    result = divide(firstNumber, secondNumber); // Wywołanie funkcji dzielenia
+                    break;
+            }
+
+            if (result !== null) {
+                console.log("Wynik: " + result); // Wyświetlanie wyniku
+            }
+        }
+
+        // Wywołanie głównej funkcji
+        calculator(); // Modularność (Clean Code)
+    </script>
+</body>
+</html>
